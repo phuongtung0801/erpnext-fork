@@ -37,6 +37,8 @@ def make_sl_entries(sl_entries, allow_negative_stock=False, via_landed_cost_vouc
 	        such cases certain validations need to be ignored (like negative
 	                        stock)
 	"""
+	# print all from sl_entries
+	print("sl_entries", sl_entries)
 	from erpnext.controllers.stock_controller import future_sle_exists
 
 	if sl_entries:
@@ -159,6 +161,7 @@ def set_as_cancel(voucher_type, voucher_no):
 
 def make_entry(args, allow_negative_stock=False, via_landed_cost_voucher=False):
 	args["doctype"] = "Stock Ledger Entry"
+	print("args", args)
 	sle = frappe.get_doc(args)
 	sle.flags.ignore_permissions = 1
 	sle.allow_negative_stock = allow_negative_stock

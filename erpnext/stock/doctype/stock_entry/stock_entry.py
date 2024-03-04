@@ -204,8 +204,10 @@ class StockEntry(StockController):
 		return False
 
 	def on_submit(self):
-		self.update_stock_ledger()
+		print("debut on_submit")
+		print(self.test_iot_customer)
 
+		self.update_stock_ledger()
 		update_serial_nos_after_submit(self, "items")
 		self.update_work_order()
 		self.validate_subcontract_order()
@@ -1206,10 +1208,11 @@ class StockEntry(StockController):
 	def update_stock_ledger(self):
 		sl_entries = []
 		finished_item_row = self.get_finished_item_row()
+		print("finished_item_row", finished_item_row)
 
 		# make sl entries for source warehouse first
 		self.get_sle_for_source_warehouse(sl_entries, finished_item_row)
-
+		
 		# SLE for target warehouse
 		self.get_sle_for_target_warehouse(sl_entries, finished_item_row)
 
@@ -1229,6 +1232,8 @@ class StockEntry(StockController):
 		return finished_item_row
 
 	def get_sle_for_source_warehouse(self, sl_entries, finished_item_row):
+		test_iot_customer = self.get('test_iot_customer')
+		print("test_iot_customer", test_iot_customer)
 		for d in self.get("items"):
 			if cstr(d.s_warehouse):
 				sle = self.get_sl_entries(
@@ -1240,10 +1245,12 @@ class StockEntry(StockController):
 					finished_item_row.item_code != d.item_code or finished_item_row.t_warehouse != d.s_warehouse
 				):
 					sle.dependant_sle_voucher_detail_no = finished_item_row.name
-
+				# Add iot_test_customer to sle
+				sle["test_iot_customer"] = test_iot_customer
 				sl_entries.append(sle)
 
 	def get_sle_for_target_warehouse(self, sl_entries, finished_item_row):
+		test_iot_customer = self.get('test_iot_customer')
 		for d in self.get("items"):
 			if cstr(d.t_warehouse):
 				sle = self.get_sl_entries(
@@ -1256,7 +1263,7 @@ class StockEntry(StockController):
 				)
 				if cstr(d.s_warehouse) or (finished_item_row and d.name == finished_item_row.name):
 					sle.recalculate_rate = 1
-
+				sle["test_iot_customer"] = test_iot_customer
 				sl_entries.append(sle)
 
 	def get_gl_entries(self, warehouse_account):
