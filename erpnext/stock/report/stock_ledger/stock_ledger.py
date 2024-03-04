@@ -10,7 +10,7 @@ from frappe.utils import cint, flt
 from erpnext.stock.doctype.inventory_dimension.inventory_dimension import get_inventory_dimensions
 from erpnext.stock.doctype.serial_no.serial_no import get_serial_nos
 from erpnext.stock.doctype.stock_reconciliation.stock_reconciliation import get_stock_balance_for
-from erpnext.stock.doctype.warehouse.warehouse import apply_warehouse_filter
+from erpnext.stock.doctype.warehouse.warehouse import apply_test_iot_customer_filter, apply_warehouse_filter
 from erpnext.stock.utils import (
 	is_reposting_item_valuation_in_progress,
 	update_included_uom_in_report,
@@ -18,6 +18,7 @@ from erpnext.stock.utils import (
 
 
 def execute(filters=None):
+	print("debug execute in stock ledger", filters)
 	is_reposting_item_valuation_in_progress()
 	include_uom = filters.get("include_uom")
 	columns = get_columns(filters)
@@ -284,6 +285,7 @@ def get_stock_ledger_entries(filters, items):
 			sle.incoming_rate,
 			sle.valuation_rate,
 			sle.company,
+			sle.test_iot_customer,
 			sle.voucher_type,
 			sle.qty_after_transaction,
 			sle.stock_value_difference,
@@ -301,6 +303,7 @@ def get_stock_ledger_entries(filters, items):
 		.orderby(CombineDatetime(sle.posting_date, sle.posting_time))
 		.orderby(sle.creation)
 	)
+	print("init query", query)
 
 	inventory_dimension_fields = get_inventory_dimension_fields()
 	if inventory_dimension_fields:
@@ -312,12 +315,12 @@ def get_stock_ledger_entries(filters, items):
 	if items:
 		query = query.where(sle.item_code.isin(items))
 
-	for field in ["voucher_no", "batch_no", "project", "company"]:
+	for field in ["voucher_no", "batch_no", "project", "company", "test_iot_customer"]:
 		if filters.get(field) and field not in inventory_dimension_fields:
 			query = query.where(sle[field] == filters.get(field))
-
+	print("query nek", query)
 	query = apply_warehouse_filter(query, sle, filters)
-
+	query = apply_test_iot_customer_filter(query, sle, filters)
 	return query.run(as_dict=True)
 
 

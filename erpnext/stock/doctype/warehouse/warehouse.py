@@ -220,6 +220,7 @@ def apply_warehouse_filter(query, sle, filters):
 		warehouse_table = frappe.qb.DocType("Warehouse")
 
 		lft, rgt = frappe.db.get_value("Warehouse", warehouse, ["lft", "rgt"])
+		print("lft, rgt", lft, rgt)
 		chilren_subquery = (
 			frappe.qb.from_(warehouse_table)
 			.select(warehouse_table.name)
@@ -229,6 +230,22 @@ def apply_warehouse_filter(query, sle, filters):
 				& (warehouse_table.name == sle.warehouse)
 			)
 		)
+		print("chilren_subquery", chilren_subquery)
 		query = query.where(ExistsCriterion(chilren_subquery))
 
 	return query
+
+def apply_test_iot_customer_filter(query, sle, filters):
+    if test_iot_customer := filters.get("test_iot_customer"):
+        test_iot_customer_table = frappe.qb.DocType("test_iot_customer")
+
+        # lft, rgt = frappe.db.get_value("test_iot_customer", test_iot_customer, ["", "rgt"])
+        children_subquery = (
+            frappe.qb.from_(test_iot_customer_table)
+            .select(test_iot_customer_table.name)
+            .where(
+                (test_iot_customer_table.name == sle.test_iot_customer)
+            )
+        )
+        query = query.where(ExistsCriterion(children_subquery))
+    return query
