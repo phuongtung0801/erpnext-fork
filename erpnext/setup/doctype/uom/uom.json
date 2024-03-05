@@ -10,7 +10,8 @@
  "field_order": [
   "enabled",
   "uom_name",
-  "must_be_whole_number"
+  "must_be_whole_number",
+  "test_iot_customer"
  ],
  "fields": [
   {
@@ -35,12 +36,18 @@
    "fieldname": "enabled",
    "fieldtype": "Check",
    "label": "Enabled"
+  },
+  {
+   "fieldname": "test_iot_customer",
+   "fieldtype": "Link",
+   "label": "test_iot_customer",
+   "options": "test_iot_customer"
   }
  ],
  "icon": "fa fa-compass",
  "idx": 1,
  "links": [],
- "modified": "2021-10-18 14:07:43.722144",
+ "modified": "2024-03-05 08:45:33.229820",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "UOM",
@@ -78,5 +85,6 @@
  "quick_entry": 1,
  "show_name_in_global_search": 1,
  "sort_field": "modified",
- "sort_order": "ASC"
+ "sort_order": "ASC",
+ "states": []
 }

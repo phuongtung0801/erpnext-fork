@@ -517,8 +517,13 @@ class BuyingController(SubcontractingController):
 
 						sl_entries.append(from_warehouse_sle)
 
+					# sle = self.get_sl_entries(
+					# 	d, {"actual_qty": flt(pr_qty), "serial_no": cstr(d.serial_no).strip()}
+					# )
+						
+					##add tes_iot_customer
 					sle = self.get_sl_entries(
-						d, {"actual_qty": flt(pr_qty), "serial_no": cstr(d.serial_no).strip()}
+						d, {"actual_qty": flt(pr_qty), "serial_no": cstr(d.serial_no).strip(), "test_iot_customer": self.test_iot_customer}
 					)
 
 					if self.is_return:
@@ -585,7 +590,7 @@ class BuyingController(SubcontractingController):
 
 		if self.get("is_old_subcontracting_flow"):
 			self.make_sl_entries_for_supplier_warehouse(sl_entries)
-
+		print("sl_entries in update stock ledger in buying", sl_entries)
 		self.make_sl_entries(
 			sl_entries,
 			allow_negative_stock=allow_negative_stock,
