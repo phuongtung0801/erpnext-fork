@@ -11,6 +11,7 @@
   "title",
   "naming_series",
   "customer",
+  "test_iot_customer",
   "tax_id",
   "customer_name",
   "column_break1",
@@ -1395,13 +1396,19 @@
    "fieldname": "named_place",
    "fieldtype": "Data",
    "label": "Named Place"
+  },
+  {
+   "fieldname": "test_iot_customer",
+   "fieldtype": "Link",
+   "label": "test_iot_customer",
+   "options": "test_iot_customer"
   }
  ],
  "icon": "fa fa-truck",
  "idx": 146,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-12-18 17:19:39.368239",
+ "modified": "2024-03-05 16:26:02.529164",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Delivery Note",

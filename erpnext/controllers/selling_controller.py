@@ -489,7 +489,6 @@ class SellingController(StockController):
 
 	def update_stock_ledger(self):
 		self.update_reserved_qty()
-
 		sl_entries = []
 		# Loop over items and packed items table
 		for d in self.get_item_list():
@@ -506,17 +505,30 @@ class SellingController(StockController):
 					(not cint(self.is_return) and self.docstatus == 1)
 					or (cint(self.is_return) and self.docstatus == 2)
 				):
-					sl_entries.append(self.get_sle_for_source_warehouse(d))
+					# sl_entries.append(self.get_sle_for_source_warehouse(d))
+					sle = self.get_sle_for_source_warehouse(d)
+					sle.update({"test_iot_customer": self.test_iot_customer})
+					sl_entries.append(sle)
 
 				if d.target_warehouse:
-					sl_entries.append(self.get_sle_for_target_warehouse(d))
+					# sl_entries.append(self.get_sle_for_target_warehouse(d))
+					sle = self.get_sle_for_target_warehouse(d)
+					sle.update({"test_iot_customer": self.test_iot_customer})
+					sl_entries.append(sle)
 
 				if d.warehouse and (
 					(not cint(self.is_return) and self.docstatus == 2)
 					or (cint(self.is_return) and self.docstatus == 1)
 				):
-					sl_entries.append(self.get_sle_for_source_warehouse(d))
+					# sl_entries.append(self.get_sle_for_source_warehouse(d))
+					sle = self.get_sle_for_source_warehouse(d)
+					sle.update({"test_iot_customer": self.test_iot_customer})
+					sl_entries.append(sle)
 
+				# # Replace the last sl_entry in sl_entries
+				# sle = self.get_sl_entries(d, {"test_iot_customer": self.test_iot_customer})
+				# sl_entries[-1] = sle
+                
 		self.make_sl_entries(sl_entries)
 
 	def get_sle_for_source_warehouse(self, item_row):
