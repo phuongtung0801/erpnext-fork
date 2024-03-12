@@ -3,7 +3,7 @@
  "allow_guest_to_view": 1,
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "format:{item_code}-{iot_customer}",
+ "autoname": "hash",
  "creation": "2013-05-03 10:45:46",
  "description": "A Product or a Service that is bought, sold or kept in stock.",
  "doctype": "DocType",
