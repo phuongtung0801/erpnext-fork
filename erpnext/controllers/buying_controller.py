@@ -523,8 +523,9 @@ class BuyingController(SubcontractingController):
 						
 					##add tes_iot_customer
 					sle = self.get_sl_entries(
-						d, {"actual_qty": flt(pr_qty), "serial_no": cstr(d.serial_no).strip(), "test_iot_customer": self.test_iot_customer}
+						d, {"actual_qty": flt(pr_qty), "serial_no": cstr(d.serial_no).strip(), "iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user}
 					)
+					
 
 					if self.is_return:
 						if get_valuation_method(d.item_code) == "Moving Average":

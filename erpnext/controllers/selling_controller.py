@@ -507,13 +507,13 @@ class SellingController(StockController):
 				):
 					# sl_entries.append(self.get_sle_for_source_warehouse(d))
 					sle = self.get_sle_for_source_warehouse(d)
-					sle.update({"test_iot_customer": self.test_iot_customer})
+					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
 					sl_entries.append(sle)
 
 				if d.target_warehouse:
 					# sl_entries.append(self.get_sle_for_target_warehouse(d))
 					sle = self.get_sle_for_target_warehouse(d)
-					sle.update({"test_iot_customer": self.test_iot_customer})
+					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
 					sl_entries.append(sle)
 
 				if d.warehouse and (
@@ -522,7 +522,7 @@ class SellingController(StockController):
 				):
 					# sl_entries.append(self.get_sle_for_source_warehouse(d))
 					sle = self.get_sle_for_source_warehouse(d)
-					sle.update({"test_iot_customer": self.test_iot_customer})
+					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
 					sl_entries.append(sle)
 
 				# # Replace the last sl_entry in sl_entries
