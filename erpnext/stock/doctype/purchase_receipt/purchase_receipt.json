@@ -14,7 +14,8 @@
   "title",
   "naming_series",
   "supplier",
-  "test_iot_customer",
+  "iot_customer",
+  "iot_customer_user",
   "supplier_name",
   "supplier_delivery_note",
   "column_break1",
@@ -1239,17 +1240,23 @@
    "label": "Named Place"
   },
   {
-   "fieldname": "test_iot_customer",
+   "fieldname": "iot_customer",
    "fieldtype": "Link",
-   "label": "test_iot_customer",
-   "options": "test_iot_customer"
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
   }
  ],
  "icon": "fa fa-truck",
  "idx": 261,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-05 15:50:04.926969",
+ "modified": "2024-03-12 09:49:07.194953",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Purchase Receipt",

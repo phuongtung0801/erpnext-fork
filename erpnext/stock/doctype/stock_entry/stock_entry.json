@@ -22,7 +22,8 @@
   "purchase_receipt_no",
   "col2",
   "company",
-  "test_iot_customer",
+  "iot_customer",
+  "iot_customer_user",
   "posting_date",
   "posting_time",
   "column_break_eaoa",
@@ -677,10 +678,16 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "test_iot_customer",
+   "fieldname": "iot_customer",
    "fieldtype": "Link",
-   "label": "Test IoT Customer",
-   "options": "test_iot_customer"
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
   }
  ],
  "icon": "fa fa-file-text",
@@ -688,7 +695,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-04 09:14:10.877294",
+ "modified": "2024-03-12 09:47:42.859419",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Entry",

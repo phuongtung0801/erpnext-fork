@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:uom_name",
+ "autoname": "format:{uom_name}-{iot_customer}",
  "creation": "2013-01-10 16:34:24",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -11,7 +11,9 @@
   "enabled",
   "uom_name",
   "must_be_whole_number",
-  "test_iot_customer"
+  "iot_customer",
+  "iot_customer_user",
+  "is_deleted"
  ],
  "fields": [
   {
@@ -21,8 +23,7 @@
    "label": "UOM Name",
    "oldfieldname": "uom_name",
    "oldfieldtype": "Data",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "default": "0",
@@ -38,20 +39,32 @@
    "label": "Enabled"
   },
   {
-   "fieldname": "test_iot_customer",
+   "fieldname": "iot_customer",
    "fieldtype": "Link",
-   "label": "test_iot_customer",
-   "options": "test_iot_customer"
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deleted",
+   "fieldtype": "Check",
+   "label": "is_deleted"
   }
  ],
  "icon": "fa fa-compass",
  "idx": 1,
  "links": [],
- "modified": "2024-03-05 08:45:33.229820",
+ "modified": "2024-03-12 11:07:08.895328",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "UOM",
- "naming_rule": "By fieldname",
+ "naming_rule": "Expression",
  "owner": "Administrator",
  "permissions": [
   {

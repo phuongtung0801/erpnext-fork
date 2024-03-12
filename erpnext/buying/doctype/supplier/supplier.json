@@ -12,7 +12,8 @@
  "field_order": [
   "naming_series",
   "supplier_name",
-  "test_iot_customer",
+  "iot_customer",
+  "is_deleted",
   "country",
   "column_break0",
   "supplier_group",
@@ -448,10 +449,16 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "test_iot_customer",
+   "fieldname": "iot_customer",
    "fieldtype": "Link",
-   "label": "test_iot_customer",
-   "options": "test_iot_customer"
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deleted",
+   "fieldtype": "Check",
+   "label": "is_deleted"
   }
  ],
  "icon": "fa fa-user",
@@ -464,7 +471,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-03-07 08:32:32.879970",
+ "modified": "2024-03-12 11:10:48.362453",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",

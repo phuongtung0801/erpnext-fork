@@ -17,7 +17,9 @@
   "column_break_4",
   "account",
   "company",
-  "test_iot_customer",
+  "iot_customer",
+  "is_deleted",
+  "iot_customer_user",
   "address_and_contact",
   "address_html",
   "column_break_10",
@@ -260,17 +262,29 @@
    "label": "Is Rejected Warehouse"
   },
   {
-   "fieldname": "test_iot_customer",
+   "fieldname": "iot_customer",
    "fieldtype": "Link",
-   "label": "Test iot customer",
-   "options": "test_iot_customer"
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deleted",
+   "fieldtype": "Check",
+   "label": "is_deleted"
   }
  ],
  "icon": "fa fa-building",
  "idx": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-03-04 09:25:27.976548",
+ "modified": "2024-03-12 11:08:56.818821",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Warehouse",
