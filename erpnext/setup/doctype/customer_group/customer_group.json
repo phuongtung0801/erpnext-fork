@@ -2,13 +2,15 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:customer_group_name",
+ "autoname": "hash",
  "creation": "2013-01-10 16:34:23",
  "doctype": "DocType",
  "document_type": "Setup",
  "engine": "InnoDB",
  "field_order": [
   "customer_group_name",
+  "iot_customer",
+  "is_deleted",
   "parent_customer_group",
   "is_group",
   "cb0",
@@ -31,8 +33,7 @@
    "no_copy": 1,
    "oldfieldname": "customer_group_name",
    "oldfieldtype": "Data",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "bold": 1,
@@ -133,17 +134,29 @@
    "fieldtype": "Table",
    "label": "Credit Limit",
    "options": "Customer Credit Limit"
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deleted",
+   "fieldtype": "Check",
+   "label": "is_deleted"
   }
  ],
  "icon": "fa fa-sitemap",
  "idx": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2022-12-24 11:15:17.142746",
+ "modified": "2024-03-12 15:52:16.582896",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Customer Group",
- "naming_rule": "By fieldname",
+ "naming_rule": "Random",
  "nsm_parent_field": "parent_customer_group",
  "owner": "Administrator",
  "permissions": [

@@ -1,7 +1,7 @@
 {
  "actions": [],
  "allow_rename": 1,
- "autoname": "field:category_name",
+ "autoname": "hash",
  "creation": "2018-04-30 17:27:14.742005",
  "doctype": "DocType",
  "editable_grid": 1,
@@ -17,8 +17,7 @@
    "fieldtype": "Data",
    "in_list_view": 1,
    "label": "Category Name",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "default": "0",
@@ -34,11 +33,11 @@
   }
  ],
  "links": [],
- "modified": "2024-03-12 11:11:23.084301",
+ "modified": "2024-03-12 16:11:59.786289",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "UOM Category",
- "naming_rule": "By fieldname",
+ "naming_rule": "Random",
  "owner": "Administrator",
  "permissions": [
   {
