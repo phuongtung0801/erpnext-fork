@@ -971,26 +971,68 @@ def adjust_incoming_rate_for_pr(doc):
 	doc.make_gl_entries()
 	doc.repost_future_sle_and_gle()
 
-
 def get_item_wise_returned_qty(pr_doc):
-	items = [d.name for d in pr_doc.items]
+    items = [d.name for d in pr_doc.items]
+    items_placeholder = ",".join(["%s"] * len(items))
 
-	return frappe._dict(
-		frappe.get_all(
-			"Purchase Receipt",
-			fields=[
-				"`tabPurchase Receipt Item`.purchase_receipt_item",
-				"sum(abs(`tabPurchase Receipt Item`.qty)) as qty",
-			],
-			filters=[
-				["Purchase Receipt", "docstatus", "=", 1],
-				["Purchase Receipt", "is_return", "=", 1],
-				["Purchase Receipt Item", "purchase_receipt_item", "in", items],
-			],
-			group_by="`tabPurchase Receipt Item`.purchase_receipt_item",
-			as_list=1,
-		)
-	)
+    query = """
+        SELECT "tabPurchase Receipt Item".purchase_receipt_item, sum(abs("tabPurchase Receipt Item".qty)) as qty
+        FROM "tabPurchase Receipt"
+        JOIN "tabPurchase Receipt Item" ON "tabPurchase Receipt".name = "tabPurchase Receipt Item".parent
+        WHERE "tabPurchase Receipt".docstatus = 1
+        AND "tabPurchase Receipt".is_return = 1
+        AND "tabPurchase Receipt Item".purchase_receipt_item IN ({})
+        GROUP BY "tabPurchase Receipt Item".purchase_receipt_item
+    """.format(items_placeholder)
+
+    result = frappe.db.sql(query, items, as_dict=1)
+
+    return frappe._dict({row.purchase_receipt_item: row.qty for row in result})
+
+# def get_item_wise_returned_qty(pr_doc):
+# 	items = [d.name for d in pr_doc.items]
+
+# 	return frappe._dict(
+# 		frappe.get_all(
+# 			"Purchase Receipt",
+# 			fields=[
+# 				"`tabPurchase Receipt Item`.purchase_receipt_item",
+# 				"sum(abs(`tabPurchase Receipt Item`.qty)) as qty",
+# 			],
+# 			filters=[
+# 				["Purchase Receipt", "docstatus", "=", 1],
+# 				["Purchase Receipt", "is_return", "=", 1],
+# 				["Purchase Receipt Item", "purchase_receipt_item", "in", items],
+# 			],
+# 			group_by="`tabPurchase Receipt Item`.purchase_receipt_item",
+# 			as_list=1,
+# 		)
+# 	)
+
+# def get_item_wise_returned_qty(pr_doc):
+# 	items = [d.name for d in pr_doc.items]
+
+# 	return frappe._dict(
+# 		frappe.db.sql("""
+# 		SELECT
+# 			"tabPurchase Receipt Item".purchase_receipt_item,
+# 			SUM(ABS("tabPurchase Receipt Item".qty)) AS qty,
+# 			GREATEST(MAX("tabPurchase Receipt".docstatus), MAX("tabPurchase Receipt".modified)) AS "tabPurchase Receipt.docstatus, tabPurchase Receipt.modified"
+# 		FROM
+# 			"tabPurchase Receipt"
+# 		LEFT JOIN
+# 			"tabPurchase Receipt Item" ON ("tabPurchase Receipt Item".parenttype = 'Purchase Receipt' AND "tabPurchase Receipt Item".parent = "tabPurchase Receipt".name::varchar)
+# 		WHERE
+# 			"tabPurchase Receipt"."docstatus" = '1'
+# 			AND "tabPurchase Receipt"."is_return" = '1'
+# 			AND "tabPurchase Receipt Item"."purchase_receipt_item" IN ('87549f12bd')
+# 		GROUP BY
+# 			"tabPurchase Receipt Item".purchase_receipt_item
+# 		ORDER BY
+# 			"tabPurchase Receipt".docstatus ASC,
+# 			"tabPurchase Receipt".modified DESC;
+# 		""")
+# 	)
 
 
 @frappe.whitelist()

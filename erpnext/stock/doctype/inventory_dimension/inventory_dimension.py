@@ -245,6 +245,7 @@ def get_inventory_dimensions():
 			fields=[
 				"distinct target_fieldname as fieldname",
 				"reference_document as doctype",
+				"modified"
 			],
 			filters={"disabled": 0},
 		)
