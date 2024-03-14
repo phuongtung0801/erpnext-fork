@@ -13,10 +13,11 @@
   "basic_info",
   "naming_series",
   "salutation",
-  "customer_name",
-  "customer_type",
   "iot_customer",
   "is_deleted",
+  "customer_name",
+  "label",
+  "customer_type",
   "customer_group",
   "column_break0",
   "territory",
@@ -569,6 +570,11 @@
    "fieldname": "is_deleted",
    "fieldtype": "Check",
    "label": "is_deleted"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "label": "Label"
   }
  ],
  "icon": "fa fa-user",
@@ -582,7 +588,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-03-14 09:49:42.620530",
+ "modified": "2024-03-14 10:56:26.314674",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",

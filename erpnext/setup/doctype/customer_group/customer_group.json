@@ -9,6 +9,7 @@
  "engine": "InnoDB",
  "field_order": [
   "customer_group_name",
+  "label",
   "parent_customer_group",
   "iot_customer",
   "is_deleted",
@@ -147,13 +148,18 @@
    "fieldname": "is_deleted",
    "fieldtype": "Check",
    "label": "is_deleted"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "label": "Label"
   }
  ],
  "icon": "fa fa-sitemap",
  "idx": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-03-14 09:50:26.834768",
+ "modified": "2024-03-14 10:56:49.832164",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Customer Group",

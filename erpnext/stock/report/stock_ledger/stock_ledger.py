@@ -11,7 +11,7 @@ from erpnext.stock.doctype.inventory_dimension.inventory_dimension import get_in
 from erpnext.stock.doctype.serial_no.serial_no import get_serial_nos
 from erpnext.stock.doctype.stock_reconciliation.stock_reconciliation import get_stock_balance_for
 # from erpnext.stock.doctype.warehouse.warehouse import apply_warehouse_filter
-from erpnext.stock.doctype.warehouse.warehouse import apply_test_iot_customer_filter
+# from erpnext.stock.doctype.warehouse.warehouse import apply_test_iot_customer_filter
 from erpnext.stock.doctype.warehouse.warehouse import apply_warehouse_filter
 
 from erpnext.stock.utils import (
@@ -270,6 +270,7 @@ def get_columns(filters):
 
 
 def get_stock_ledger_entries(filters, items):
+	print("get_stock_ledger_entries")
 	sle = frappe.qb.DocType("Stock Ledger Entry")
 	query = (
 		frappe.qb.from_(sle)
@@ -318,7 +319,7 @@ def get_stock_ledger_entries(filters, items):
 			query = query.where(sle[field] == filters.get(field))
 
 	query = apply_warehouse_filter(query, sle, filters)
-	query = apply_test_iot_customer_filter(query, sle, filters)
+	#query = apply_test_iot_customer_filter(query, sle, filters)
 	return query.run(as_dict=True)
 
 

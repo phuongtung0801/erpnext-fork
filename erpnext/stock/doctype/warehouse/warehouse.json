@@ -1,6 +1,7 @@
 {
  "actions": [],
  "allow_import": 1,
+ "autoname": "hash",
  "creation": "2013-03-07 18:50:32",
  "description": "A logical Warehouse against which stock entries are made.",
  "doctype": "DocType",
@@ -9,6 +10,7 @@
  "field_order": [
   "warehouse_detail",
   "warehouse_name",
+  "label",
   "column_break_3",
   "warehouse_type",
   "parent_warehouse",
@@ -17,6 +19,8 @@
   "column_break_4",
   "account",
   "company",
+  "iot_customer",
+  "is_deleted",
   "disabled",
   "address_and_contact",
   "address_html",
@@ -238,16 +242,34 @@
    "fieldtype": "Link",
    "label": "Default In-Transit Warehouse",
    "options": "Warehouse"
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deleted",
+   "fieldtype": "Check",
+   "label": "is_deleted"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "label": "Label"
   }
  ],
  "icon": "fa fa-building",
  "idx": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2022-03-01 02:37:48.034944",
+ "modified": "2024-03-14 10:57:13.968801",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Warehouse",
+ "naming_rule": "Random",
  "nsm_parent_field": "parent_warehouse",
  "owner": "Administrator",
  "permissions": [

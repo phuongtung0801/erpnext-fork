@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "hash",
+ "autoname": "field:supplier_group_name",
  "creation": "2013-01-10 16:34:24",
  "doctype": "DocType",
  "document_type": "Setup",
@@ -10,8 +10,9 @@
  "field_order": [
   "supplier_group_name",
   "parent_supplier_group",
-  "iot_customer",
+  "label",
   "is_deleted",
+  "iot_customer",
   "is_group",
   "section_credit_limit",
   "payment_terms",
@@ -114,19 +115,23 @@
    "default": "0",
    "fieldname": "is_deleted",
    "fieldtype": "Check",
-   "label": "is_deleted",
-   "options": "is_deleted"
+   "label": "is_deleted"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "label": "Label"
   }
  ],
  "icon": "fa fa-flag",
  "idx": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-03-14 09:51:42.090911",
+ "modified": "2024-03-14 10:56:01.778165",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Supplier Group",
- "naming_rule": "Random",
+ "naming_rule": "By fieldname",
  "nsm_parent_field": "parent_supplier_group",
  "owner": "Administrator",
  "permissions": [

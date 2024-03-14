@@ -2,7 +2,7 @@
  "actions": [],
  "allow_import": 1,
  "allow_rename": 1,
- "autoname": "field:item_group_name",
+ "autoname": "hash",
  "creation": "2013-03-28 10:35:29",
  "description": "Item Classification",
  "doctype": "DocType",
@@ -11,8 +11,10 @@
  "field_order": [
   "gs",
   "item_group_name",
+  "label",
   "parent_item_group",
   "iot_customer",
+  "iot_customer_user",
   "is_deleted",
   "is_group",
   "image",
@@ -239,6 +241,17 @@
    "fieldname": "is_deleted",
    "fieldtype": "Check",
    "label": "is_deleted"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
+  },
+  {
+   "fieldname": "label",
+   "fieldtype": "Data",
+   "label": "Label"
   }
  ],
  "icon": "fa fa-sitemap",
@@ -247,11 +260,11 @@
  "is_tree": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2024-03-14 09:47:59.369366",
+ "modified": "2024-03-14 10:55:02.073173",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Item Group",
- "naming_rule": "By fieldname",
+ "naming_rule": "Random",
  "nsm_parent_field": "parent_item_group",
  "owner": "Administrator",
  "permissions": [
