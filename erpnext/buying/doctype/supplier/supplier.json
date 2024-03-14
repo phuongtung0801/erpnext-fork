@@ -15,6 +15,8 @@
   "country",
   "column_break0",
   "supplier_group",
+  "iot_customer",
+  "is_deleted",
   "supplier_type",
   "is_transporter",
   "image",
@@ -445,6 +447,18 @@
   {
    "fieldname": "column_break_59",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deleted",
+   "fieldtype": "Check",
+   "label": "is_deleted"
   }
  ],
  "icon": "fa fa-user",
@@ -457,7 +471,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2022-11-09 18:02:59.075203",
+ "modified": "2024-03-14 09:50:58.301173",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",

@@ -11,7 +11,8 @@ from erpnext.stock.doctype.inventory_dimension.inventory_dimension import get_in
 from erpnext.stock.doctype.serial_no.serial_no import get_serial_nos
 from erpnext.stock.doctype.stock_reconciliation.stock_reconciliation import get_stock_balance_for
 # from erpnext.stock.doctype.warehouse.warehouse import apply_warehouse_filter
-from erpnext.stock.doctype.warehouse.warehouse import apply_test_iot_customer_filter, apply_warehouse_filter
+from erpnext.stock.doctype.warehouse.warehouse import apply_test_iot_customer_filter
+from erpnext.stock.doctype.warehouse.warehouse import apply_warehouse_filter
 
 from erpnext.stock.utils import (
 	is_reposting_item_valuation_in_progress,

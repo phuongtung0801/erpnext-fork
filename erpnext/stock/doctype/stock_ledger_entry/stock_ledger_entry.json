@@ -9,6 +9,8 @@
  "field_order": [
   "item_code",
   "warehouse",
+  "iot_customer",
+  "iot_customer_user",
   "posting_date",
   "posting_time",
   "column_break_6",
@@ -309,6 +311,18 @@
    "label": "Recalculate Incoming/Outgoing Rate",
    "no_copy": 1,
    "read_only": 1
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
   }
  ],
  "hide_toolbar": 1,
@@ -317,7 +331,7 @@
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2021-12-21 06:25:30.040801",
+ "modified": "2024-03-14 09:54:23.824838",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Ledger Entry",

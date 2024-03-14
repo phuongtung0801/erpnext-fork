@@ -12,6 +12,8 @@
   "gs",
   "item_group_name",
   "parent_item_group",
+  "iot_customer",
+  "is_deleted",
   "is_group",
   "image",
   "column_break_5",
@@ -225,6 +227,18 @@
    "fieldname": "include_descendants",
    "fieldtype": "Check",
    "label": "Include Descendants"
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "default": "0",
+   "fieldname": "is_deleted",
+   "fieldtype": "Check",
+   "label": "is_deleted"
   }
  ],
  "icon": "fa fa-sitemap",
@@ -233,7 +247,7 @@
  "is_tree": 1,
  "links": [],
  "max_attachments": 3,
- "modified": "2023-01-05 12:21:30.458628",
+ "modified": "2024-03-14 09:47:59.369366",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "Item Group",
