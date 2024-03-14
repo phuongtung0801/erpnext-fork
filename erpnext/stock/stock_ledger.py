@@ -1128,6 +1128,71 @@ def get_previous_sle(args, for_update=False):
 	return sle and sle[0] or {}
 
 
+# def get_stock_ledger_entries(
+# 	previous_sle,
+# 	operator=None,
+# 	order="desc",
+# 	limit=None,
+# 	for_update=False,
+# 	debug=False,
+# 	check_serial_no=True,
+# ):
+# 	"""get stock ledger entries filtered by specific posting datetime conditions"""
+# 	conditions = " and timestamp(posting_date, posting_time) {0} timestamp(%(posting_date)s, %(posting_time)s)".format(
+# 		operator
+# 	)
+# 	if previous_sle.get("warehouse"):
+# 		conditions += " and warehouse = %(warehouse)s"
+# 	elif previous_sle.get("warehouse_condition"):
+# 		conditions += " and " + previous_sle.get("warehouse_condition")
+
+# 	if check_serial_no and previous_sle.get("serial_no"):
+# 		# conditions += " and serial_no like {}".format(frappe.db.escape('%{0}%'.format(previous_sle.get("serial_no"))))
+# 		serial_no = previous_sle.get("serial_no")
+# 		conditions += (
+# 			""" and
+# 			(
+# 				serial_no = {0}
+# 				or serial_no like {1}
+# 				or serial_no like {2}
+# 				or serial_no like {3}
+# 			)
+# 		"""
+# 		).format(
+# 			frappe.db.escape(serial_no),
+# 			frappe.db.escape("{}\n%".format(serial_no)),
+# 			frappe.db.escape("%\n{}".format(serial_no)),
+# 			frappe.db.escape("%\n{}\n%".format(serial_no)),
+# 		)
+
+# 	if not previous_sle.get("posting_date"):
+# 		previous_sle["posting_date"] = "1900-01-01"
+# 	if not previous_sle.get("posting_time"):
+# 		previous_sle["posting_time"] = "00:00"
+
+# 	if operator in (">", "<=") and previous_sle.get("name"):
+# 		conditions += " and name!=%(name)s"
+
+# 	return frappe.db.sql(
+	# 	"""
+	# 	select *, timestamp(posting_date, posting_time) as "timestamp"
+	# 	from `tabStock Ledger Entry`
+	# 	where item_code = %%(item_code)s
+	# 	and is_cancelled = 0
+	# 	%(conditions)s
+	# 	order by timestamp(posting_date, posting_time) %(order)s, creation %(order)s
+	# 	%(limit)s %(for_update)s"""
+	# 	% {
+	# 		"conditions": conditions,
+	# 		"limit": limit or "",
+	# 		"for_update": for_update and "for update" or "",
+	# 		"order": order,
+	# 	},
+	# 	previous_sle,
+	# 	as_dict=1,
+	# 	debug=debug,
+	# )
+
 def get_stock_ledger_entries(
 	previous_sle,
 	operator=None,
@@ -1135,12 +1200,15 @@ def get_stock_ledger_entries(
 	limit=None,
 	for_update=False,
 	debug=False,
-	check_serial_no=True,
+	check_serial_no=True
 ):
 	"""get stock ledger entries filtered by specific posting datetime conditions"""
-	conditions = " and timestamp(posting_date, posting_time) {0} timestamp(%(posting_date)s, %(posting_time)s)".format(
-		operator
-	)
+	# conditions = " and timestamp(posting_date, posting_time) {0} timestamp(%(posting_date)s, %(posting_time)s)".format(
+	# 	operator
+	# )
+	conditions = " and (posting_date || ' ' || posting_time)::timestamp {0} (%(posting_date)s || ' ' || %(posting_time)s)::timestamp".format(
+        operator
+    )
 	if previous_sle.get("warehouse"):
 		conditions += " and warehouse = %(warehouse)s"
 	elif previous_sle.get("warehouse_condition"):
@@ -1173,25 +1241,32 @@ def get_stock_ledger_entries(
 	if operator in (">", "<=") and previous_sle.get("name"):
 		conditions += " and name!=%(name)s"
 
+	# if operator in (">", "<=") and previous_sle.get("voucher_no"):
+	# 	conditions += " and voucher_no!=%(voucher_no)s"
+
+	# if extra_cond:
+	# 	conditions += f"{extra_cond}"
+
 	return frappe.db.sql(
-		"""
-		select *, timestamp(posting_date, posting_time) as "timestamp"
-		from `tabStock Ledger Entry`
-		where item_code = %%(item_code)s
-		and is_cancelled = 0
-		%(conditions)s
-		order by timestamp(posting_date, posting_time) %(order)s, creation %(order)s
-		%(limit)s %(for_update)s"""
-		% {
-			"conditions": conditions,
-			"limit": limit or "",
-			"for_update": for_update and "for update" or "",
-			"order": order,
-		},
-		previous_sle,
-		as_dict=1,
-		debug=debug,
-	)
+        """
+        select *, (posting_date || ' ' || posting_time)::timestamp as "timestamp"
+        from `tabStock Ledger Entry`
+        where item_code = %%(item_code)s
+        and is_cancelled = 0
+        %(conditions)s
+        order by (posting_date || ' ' || posting_time)::timestamp %(order)s, creation %(order)s
+        %(limit)s %(for_update)s"""
+        % {
+            "conditions": conditions,
+            "limit": limit or "",
+            "for_update": for_update and "for update" or "",
+            "order": order,
+        },
+        previous_sle,
+        as_dict=1,
+        debug=debug,
+    )
+
 
 
 def get_sle_by_voucher_detail_no(voucher_detail_no, excluded_sle=None):
@@ -1277,7 +1352,7 @@ def get_valuation_rate(
 	if not last_valuation_rate or last_valuation_rate[0][0] is None:
 		last_valuation_rate = frappe.db.sql(
 			"""select valuation_rate
-			from `tabStock Ledger Entry` force index (item_warehouse)
+			from `tabStock Ledger Entry`
 			where
 				item_code = %s
 				AND warehouse = %s
