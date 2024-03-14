@@ -494,16 +494,25 @@ class SellingController(StockController):
 					(not cint(self.is_return) and self.docstatus == 1)
 					or (cint(self.is_return) and self.docstatus == 2)
 				):
-					sl_entries.append(self.get_sle_for_source_warehouse(d))
+					# sl_entries.append(self.get_sle_for_source_warehouse(d))
+					sle = self.get_sle_for_source_warehouse(d)
+					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
+					sl_entries.append(sle)
 
 				if d.target_warehouse:
-					sl_entries.append(self.get_sle_for_target_warehouse(d))
+					# sl_entries.append(self.get_sle_for_target_warehouse(d))
+					sle = self.get_sle_for_target_warehouse(d)
+					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
+					sl_entries.append(sle)
 
 				if d.warehouse and (
 					(not cint(self.is_return) and self.docstatus == 2)
 					or (cint(self.is_return) and self.docstatus == 1)
 				):
-					sl_entries.append(self.get_sle_for_source_warehouse(d))
+					# sl_entries.append(self.get_sle_for_source_warehouse(d))
+					sle = self.get_sle_for_source_warehouse(d)
+					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
+					sl_entries.append(sle)
 
 		self.make_sl_entries(sl_entries)
 
