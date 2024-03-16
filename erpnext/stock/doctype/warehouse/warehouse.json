@@ -39,7 +39,9 @@
   "tree_details",
   "lft",
   "rgt",
-  "old_parent"
+  "old_parent",
+  "description",
+  "image"
  ],
  "fields": [
   {
@@ -259,13 +261,23 @@
    "fieldname": "label",
    "fieldtype": "Data",
    "label": "Label"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "description"
+  },
+  {
+   "fieldname": "image",
+   "fieldtype": "Data",
+   "label": "image"
   }
  ],
  "icon": "fa fa-building",
  "idx": 1,
  "is_tree": 1,
  "links": [],
- "modified": "2024-03-14 10:57:13.968801",
+ "modified": "2024-03-15 15:04:39.650778",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Warehouse",
