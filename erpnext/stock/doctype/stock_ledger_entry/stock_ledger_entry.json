@@ -11,6 +11,8 @@
   "warehouse",
   "iot_customer",
   "iot_customer_user",
+  "supplier",
+  "customer",
   "posting_date",
   "posting_time",
   "column_break_6",
@@ -323,6 +325,18 @@
    "fieldtype": "Link",
    "label": "iot_customer_user",
    "options": "iot_customer_user"
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "supplier",
+   "options": "Supplier"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "customer",
+   "options": "Customer"
   }
  ],
  "hide_toolbar": 1,
@@ -331,7 +345,7 @@
  "in_create": 1,
  "index_web_pages_for_search": 1,
  "links": [],
- "modified": "2024-03-14 10:20:06.860345",
+ "modified": "2024-03-23 16:14:27.878224",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Ledger Entry",

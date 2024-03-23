@@ -14,8 +14,13 @@
   "title",
   "naming_series",
   "supplier",
+  "supplier_label",
+  "customer",
   "iot_customer_user",
+  "user_first_name",
+  "user_last_name",
   "iot_customer",
+  "description",
   "supplier_name",
   "supplier_delivery_note",
   "column_break1",
@@ -1246,13 +1251,42 @@
    "fieldtype": "Link",
    "label": "iot_customer_user",
    "options": "iot_customer_user"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "description"
+  },
+  {
+   "fetch_from": "iot_customer_user.first_name",
+   "fieldname": "user_first_name",
+   "fieldtype": "Data",
+   "label": "user_first_name"
+  },
+  {
+   "fetch_from": "iot_customer_user.last_name",
+   "fieldname": "user_last_name",
+   "fieldtype": "Data",
+   "label": "user_last_name"
+  },
+  {
+   "fetch_from": "supplier.label",
+   "fieldname": "supplier_label",
+   "fieldtype": "Data",
+   "label": "supplier_label"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "customer",
+   "options": "Customer"
   }
  ],
  "icon": "fa fa-truck",
  "idx": 261,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-14 10:19:15.751754",
+ "modified": "2024-03-23 16:23:51.386181",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Purchase Receipt",

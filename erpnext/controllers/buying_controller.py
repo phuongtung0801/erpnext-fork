@@ -485,7 +485,13 @@ class BuyingController(SubcontractingController):
 
 					##add tes_iot_customer
 					sle = self.get_sl_entries(
-						d, {"actual_qty": flt(pr_qty), "serial_no": cstr(d.serial_no).strip(), "iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user}
+						d, {
+							"actual_qty": flt(pr_qty),
+							"serial_no": cstr(d.serial_no).strip(),
+							"iot_customer": self.iot_customer, 
+							"iot_customer_user": self.iot_customer_user,
+							"customer": self.customer
+							}
 					)
 					
 					if self.is_return:

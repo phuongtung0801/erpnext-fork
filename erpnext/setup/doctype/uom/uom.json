@@ -22,8 +22,7 @@
    "label": "UOM Name",
    "oldfieldname": "uom_name",
    "oldfieldtype": "Data",
-   "reqd": 1,
-   "unique": 1
+   "reqd": 1
   },
   {
    "default": "0",
@@ -54,7 +53,7 @@
  "icon": "fa fa-compass",
  "idx": 1,
  "links": [],
- "modified": "2024-03-14 10:15:34.434362",
+ "modified": "2024-03-19 14:22:59.556940",
  "modified_by": "Administrator",
  "module": "Setup",
  "name": "UOM",

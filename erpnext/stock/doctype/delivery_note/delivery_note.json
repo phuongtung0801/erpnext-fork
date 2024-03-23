@@ -11,8 +11,13 @@
   "title",
   "naming_series",
   "customer",
+  "customer_label",
+  "supplier",
   "iot_customer",
   "iot_customer_user",
+  "user_first_name",
+  "user_last_name",
+  "description",
   "tax_id",
   "customer_name",
   "column_break1",
@@ -44,6 +49,7 @@
   "pick_list",
   "col_break_warehouse",
   "set_warehouse",
+  "set_warehouse_label",
   "set_target_warehouse",
   "section_break_30",
   "items",
@@ -1406,13 +1412,51 @@
    "fieldtype": "Link",
    "label": "iot_customer_user",
    "options": "iot_customer_user"
+  },
+  {
+   "fetch_from": "iot_customer_user.first_name",
+   "fieldname": "user_first_name",
+   "fieldtype": "Data",
+   "label": "user_first_name"
+  },
+  {
+   "fetch_from": "iot_customer_user.last_name",
+   "fieldname": "user_last_name",
+   "fieldtype": "Data",
+   "label": "user_last_name"
+  },
+  {
+   "fetch_from": "customer.label",
+   "fieldname": "customer_label",
+   "fieldtype": "Data",
+   "label": "customer_label"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "description"
+  },
+  {
+   "fetch_from": "set_warehouse.label",
+   "fetch_if_empty": 1,
+   "fieldname": "set_warehouse_label",
+   "fieldtype": "Data",
+   "label": "set warehouse label",
+   "length": 255,
+   "read_only": 1
+  },
+  {
+   "fieldname": "supplier",
+   "fieldtype": "Link",
+   "label": "supplier",
+   "options": "Supplier"
   }
  ],
  "icon": "fa fa-truck",
  "idx": 146,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-14 10:18:53.439658",
+ "modified": "2024-03-23 17:01:09.559941",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Delivery Note",

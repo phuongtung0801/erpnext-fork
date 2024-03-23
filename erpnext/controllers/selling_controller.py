@@ -496,13 +496,23 @@ class SellingController(StockController):
 				):
 					# sl_entries.append(self.get_sle_for_source_warehouse(d))
 					sle = self.get_sle_for_source_warehouse(d)
-					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
+					sle.update({
+						"iot_customer": self.iot_customer,
+						"iot_customer_user": self.iot_customer_user,
+						"customer": self.customer,
+						"supplier": self.supploier
+						})
 					sl_entries.append(sle)
 
 				if d.target_warehouse:
 					# sl_entries.append(self.get_sle_for_target_warehouse(d))
 					sle = self.get_sle_for_target_warehouse(d)
-					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
+					sle.update({
+						"iot_customer": self.iot_customer,
+						"iot_customer_user": self.iot_customer_user,
+						"customer": self.customer,
+						"supplier": self.supploier
+						})
 					sl_entries.append(sle)
 
 				if d.warehouse and (
@@ -511,7 +521,12 @@ class SellingController(StockController):
 				):
 					# sl_entries.append(self.get_sle_for_source_warehouse(d))
 					sle = self.get_sle_for_source_warehouse(d)
-					sle.update({"iot_customer": self.iot_customer, "iot_customer_user": self.iot_customer_user})
+					sle.update({
+						"iot_customer": self.iot_customer,
+						"iot_customer_user": self.iot_customer_user,
+						"customer": self.customer,
+						"supplier": self.supploier
+						})
 					sl_entries.append(sle)
 
 		self.make_sl_entries(sl_entries)

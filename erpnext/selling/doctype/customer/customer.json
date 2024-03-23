@@ -14,11 +14,22 @@
   "naming_series",
   "salutation",
   "iot_customer",
+  "iot_customer_user",
   "is_deleted",
+  "facebook",
+  "birthday",
+  "description",
+  "address",
+  "province",
+  "ward",
+  "company",
+  "customer_phone",
   "customer_name",
+  "customer_name_alter",
   "label",
   "customer_type",
   "customer_group",
+  "customer_group_label",
   "column_break0",
   "territory",
   "gender",
@@ -114,7 +125,6 @@
    "fieldtype": "Data",
    "in_global_search": 1,
    "label": "Customer Name",
-   "no_copy": 1,
    "oldfieldname": "customer_name",
    "oldfieldtype": "Data",
    "reqd": 1,
@@ -306,15 +316,13 @@
    "options": "Contact"
   },
   {
-   "fetch_from": "customer_primary_contact.mobile_no",
    "fieldname": "mobile_no",
-   "fieldtype": "Read Only",
+   "fieldtype": "Data",
    "label": "Mobile No"
   },
   {
-   "fetch_from": "customer_primary_contact.email_id",
    "fieldname": "email_id",
-   "fieldtype": "Read Only",
+   "fieldtype": "Data",
    "label": "Email Id"
   },
   {
@@ -575,6 +583,63 @@
    "fieldname": "label",
    "fieldtype": "Data",
    "label": "Label"
+  },
+  {
+   "fetch_from": "customer_group.label",
+   "fieldname": "customer_group_label",
+   "fieldtype": "Data",
+   "label": "customer_group_label"
+  },
+  {
+   "fieldname": "facebook",
+   "fieldtype": "Data",
+   "label": "facebook"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "description"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "address"
+  },
+  {
+   "fieldname": "province",
+   "fieldtype": "Data",
+   "label": "province"
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Data",
+   "label": "ward"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "company"
+  },
+  {
+   "fieldname": "customer_phone",
+   "fieldtype": "Data",
+   "label": "customer_phone"
+  },
+  {
+   "fieldname": "birthday",
+   "fieldtype": "Date",
+   "label": "birthday"
+  },
+  {
+   "fieldname": "customer_name_alter",
+   "fieldtype": "Data",
+   "label": "customer_name_alter"
   }
  ],
  "icon": "fa fa-user",
@@ -588,7 +653,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-03-14 10:56:26.314674",
+ "modified": "2024-03-21 20:16:58.880338",
  "modified_by": "Administrator",
  "module": "Selling",
  "name": "Customer",

@@ -1154,7 +1154,9 @@ class StockEntry(StockController):
 	def get_sle_for_source_warehouse(self, sl_entries, finished_item_row):
 		iot_customer = self.get('iot_customer')
 		iot_customer_user = self.get('iot_customer_user')
-
+		#add for customer and supplier
+		customer = self.get('customer')
+		supplier = self.get('supplier')
 		for d in self.get("items"):
 			if cstr(d.s_warehouse):
 				sle = self.get_sl_entries(
@@ -1169,12 +1171,16 @@ class StockEntry(StockController):
 				# Add iot_test_customer to sle
 				sle["iot_customer"] = iot_customer
 				sle["iot_customer_user"] = iot_customer_user
+				sle["customer"] = customer
+				sle["supplier"] = supplier
 				sl_entries.append(sle)
 
 	def get_sle_for_target_warehouse(self, sl_entries, finished_item_row):
 		iot_customer = self.get('iot_customer')
 		iot_customer_user = self.get('iot_customer_user')
-
+		#add for customer and supplier
+		customer = self.get('customer')
+		supplier = self.get('supplier')
 		for d in self.get("items"):
 			if cstr(d.t_warehouse):
 				sle = self.get_sl_entries(
@@ -1190,6 +1196,8 @@ class StockEntry(StockController):
 					
 				sle["iot_customer"] = iot_customer
 				sle["iot_customer_user"] = iot_customer_user
+				sle["customer"] = customer
+				sle["supplier"] = supplier
 				sl_entries.append(sle)
 
 	def get_gl_entries(self, warehouse_account):

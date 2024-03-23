@@ -16,8 +16,18 @@
   "country",
   "iot_customer",
   "is_deleted",
+  "facebook",
+  "birthday",
+  "description",
+  "address",
+  "province",
+  "ward",
+  "company",
+  "supplier_phone",
+  "supplier_name_alter",
   "column_break0",
   "supplier_group",
+  "supplier_group_label",
   "supplier_type",
   "is_transporter",
   "image",
@@ -465,6 +475,57 @@
    "fieldname": "label",
    "fieldtype": "Data",
    "label": "Label"
+  },
+  {
+   "fetch_from": "supplier_group.label",
+   "fieldname": "supplier_group_label",
+   "fieldtype": "Data",
+   "label": "supplier_group_label"
+  },
+  {
+   "fieldname": "facebook",
+   "fieldtype": "Data",
+   "label": "facebook"
+  },
+  {
+   "fieldname": "birthday",
+   "fieldtype": "Date",
+   "label": "birthday"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "description"
+  },
+  {
+   "fieldname": "address",
+   "fieldtype": "Data",
+   "label": "address"
+  },
+  {
+   "fieldname": "province",
+   "fieldtype": "Data",
+   "label": "province"
+  },
+  {
+   "fieldname": "ward",
+   "fieldtype": "Data",
+   "label": "ward"
+  },
+  {
+   "fieldname": "company",
+   "fieldtype": "Data",
+   "label": "company"
+  },
+  {
+   "fieldname": "supplier_phone",
+   "fieldtype": "Data",
+   "label": "supplier_phone"
+  },
+  {
+   "fieldname": "supplier_name_alter",
+   "fieldtype": "Data",
+   "label": "supplier_name_alter"
   }
  ],
  "icon": "fa fa-user",
@@ -477,7 +538,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-03-14 10:55:42.413142",
+ "modified": "2024-03-22 10:29:42.592791",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",

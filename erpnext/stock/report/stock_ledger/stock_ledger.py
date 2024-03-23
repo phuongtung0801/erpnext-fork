@@ -5,7 +5,7 @@
 import frappe
 from frappe import _
 from frappe.query_builder.functions import CombineDatetime
-from frappe.utils import cint, flt
+from frappe.utils import cint, flt, logger
 
 from erpnext.stock.doctype.inventory_dimension.inventory_dimension import get_inventory_dimensions
 from erpnext.stock.doctype.serial_no.serial_no import get_serial_nos
@@ -18,7 +18,7 @@ from erpnext.stock.utils import (
 	is_reposting_item_valuation_in_progress,
 	update_included_uom_in_report,
 )
-
+logger.set_log_level("DEBUG")
 
 def execute(filters=None):
 	is_reposting_item_valuation_in_progress()
@@ -269,8 +269,10 @@ def get_columns(filters):
 	return columns
 
 
+logger = frappe.logger("my_custom_logger", allow_site=True, file_count=50)
+
 def get_stock_ledger_entries(filters, items):
-	print("get_stock_ledger_entries")
+	logger.info("accessed counter_app.update with value={items}")
 	sle = frappe.qb.DocType("Stock Ledger Entry")
 	query = (
 		frappe.qb.from_(sle)
@@ -286,6 +288,8 @@ def get_stock_ledger_entries(filters, items):
 			sle.company,
 			sle.iot_customer,
 			sle.iot_customer_user,
+			sle.customer,
+			sle.supplier,
 			sle.voucher_type,
 			sle.qty_after_transaction,
 			sle.stock_value_difference,

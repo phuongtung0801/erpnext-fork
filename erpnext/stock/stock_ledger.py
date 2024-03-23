@@ -11,6 +11,7 @@ from frappe import _
 from frappe.model.meta import get_field_precision
 from frappe.query_builder.functions import CombineDatetime, Sum
 from frappe.utils import cint, cstr, flt, get_link_to_form, getdate, now, nowdate
+from datetime import datetime, date, time
 
 import erpnext
 from erpnext.stock.doctype.bin.bin import update_qty as update_bin_qty
@@ -42,7 +43,8 @@ def make_sl_entries(sl_entries, allow_negative_stock=False, via_landed_cost_vouc
 							stock)
 	"""
 	from erpnext.controllers.stock_controller import future_sle_exists
-
+	print("fuck")
+	frappe.errprint("Thông điệp lỗi của bạn ở đây")
 	if sl_entries:
 		cancel = sl_entries[0].get("is_cancelled")
 		if cancel:
@@ -1146,19 +1148,39 @@ class update_entries_after(object):
 
 # 	return sle[0] if sle else frappe._dict()
 			
+# def is_valid_date(date_str):
+# 	try:
+# 		datetime.strptime(date_str, '%Y-%m-%d')
+# 		return True
+# 	except ValueError:
+# 		return False
+			
 def is_valid_date(date_str):
-	try:
-		datetime.strptime(date_str, '%Y-%m-%d')
-		return True
-	except ValueError:
-		return False
+    if isinstance(date_str, date):  # Check if date_str is already a datetime.date object
+        return True
+    
+    try:
+        datetime.strptime(date_str, '%Y-%m-%d')
+        return True
+    except ValueError:
+        return False
 
+# def is_valid_time(time_str):
+# 	try:
+# 		datetime.strptime(time_str, '%H:%M:%S')
+# 		return True
+# 	except ValueError:
+# 		return False
+	
 def is_valid_time(time_str):
-	try:
-		datetime.strptime(time_str, '%H:%M:%S')
-		return True
-	except ValueError:
-		return False
+    if isinstance(time_str, time):  # Check if time_str is already a datetime.time object
+        return True
+    
+    try:
+        datetime.strptime(time_str, '%H:%M:%S')
+        return True
+    except ValueError:
+        return False
 		
 def get_previous_sle_of_current_voucher(args, operator="<", exclude_current_voucher=False):
 	"""get stock ledger entries filtered by specific posting datetime conditions"""
