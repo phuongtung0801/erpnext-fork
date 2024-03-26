@@ -5,7 +5,7 @@
 import frappe
 from frappe import ValidationError, _, msgprint
 from frappe.contacts.doctype.address.address import get_address_display
-from frappe.utils import cint, cstr, flt, getdate
+from frappe.utils import cint, cstr, flt, getdate, logger
 from frappe.utils.data import nowtime
 
 from erpnext.accounts.doctype.budget.budget import validate_expense_against_budget
@@ -16,6 +16,8 @@ from erpnext.controllers.subcontracting_controller import SubcontractingControll
 from erpnext.stock.get_item_details import get_conversion_factor
 from erpnext.stock.utils import get_incoming_rate
 
+logger.set_log_level("DEBUG")
+logger = frappe.logger("my_custom_logger", allow_site=True, file_count=50)
 
 class QtyMismatchError(ValidationError):
 	pass
@@ -490,7 +492,7 @@ class BuyingController(SubcontractingController):
 							"serial_no": cstr(d.serial_no).strip(),
 							"iot_customer": self.iot_customer, 
 							"iot_customer_user": self.iot_customer_user,
-							"customer": self.customer
+							"supplier": self.supplier
 							}
 					)
 					
@@ -540,6 +542,7 @@ class BuyingController(SubcontractingController):
 
 		if self.get("is_old_subcontracting_flow"):
 			self.make_sl_entries_for_supplier_warehouse(sl_entries)
+		logger.info(f"sl_entries = {sl_entries}")
 		self.make_sl_entries(
 			sl_entries,
 			allow_negative_stock=allow_negative_stock,
