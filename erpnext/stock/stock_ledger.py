@@ -43,7 +43,6 @@ def make_sl_entries(sl_entries, allow_negative_stock=False, via_landed_cost_vouc
 							stock)
 	"""
 	from erpnext.controllers.stock_controller import future_sle_exists
-	print("fuck")
 	frappe.errprint("Thông điệp lỗi của bạn ở đây")
 	if sl_entries:
 		cancel = sl_entries[0].get("is_cancelled")
@@ -1610,7 +1609,7 @@ def update_qty_in_future_sle(args, allow_negative_stock=False):
 				posting_date > %(posting_date)s or
 				(
 					posting_date = %(posting_date)s and
-					to_char(posting_time, 'HH24:MI:SS') > to_char(%(posting_time)s, 'HH24:MI:SS')
+					to_char(posting_time::time, 'HH24:MI:SS') > to_char(%(posting_time)s::time, 'HH24:MI:SS')
 				)
 			)
 		{datetime_limit_condition}

@@ -9,6 +9,8 @@
  "field_order": [
   "naming_series",
   "company",
+  "iot_customer",
+  "iot_customer_user",
   "purpose",
   "col1",
   "posting_date",
@@ -177,13 +179,25 @@
   {
    "fieldname": "column_break_12",
    "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
   }
  ],
  "icon": "fa fa-upload-alt",
  "idx": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2022-05-11 09:10:26.327652",
+ "modified": "2024-04-02 08:50:12.942156",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Reconciliation",

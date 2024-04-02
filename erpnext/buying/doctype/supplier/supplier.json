@@ -100,7 +100,6 @@
    "fieldtype": "Data",
    "in_global_search": 1,
    "label": "Supplier Name",
-   "no_copy": 1,
    "oldfieldname": "supplier_name",
    "oldfieldtype": "Data",
    "reqd": 1
@@ -538,7 +537,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-03-22 10:29:42.592791",
+ "modified": "2024-03-27 16:15:21.949461",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",
