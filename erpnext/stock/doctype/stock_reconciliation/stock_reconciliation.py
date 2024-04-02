@@ -6,7 +6,7 @@ from typing import Optional
 import frappe
 from frappe import _, bold, msgprint
 from frappe.query_builder.functions import CombineDatetime, Sum
-from frappe.utils import cint, cstr, flt
+from frappe.utils import cint, cstr, flt, logger
 
 import erpnext
 from erpnext.accounts.utils import get_company_default
@@ -14,7 +14,8 @@ from erpnext.controllers.stock_controller import StockController
 from erpnext.stock.doctype.batch.batch import get_batch_qty
 from erpnext.stock.doctype.serial_no.serial_no import get_serial_nos
 from erpnext.stock.utils import get_stock_balance
-
+logger.set_log_level("DEBUG")
+logger = frappe.logger("stock_reconciliation", allow_site=True, file_count=50)
 
 class OpeningEntryAccountError(frappe.ValidationError):
 	pass
@@ -234,6 +235,7 @@ class StockReconciliation(StockController):
 		has_batch_no = False
 		for row in self.items:
 			item = frappe.get_doc("Item", row.item_code)
+			sl_entries.append(self.get_sle_for_items(row))
 			if item.has_batch_no:
 				has_batch_no = True
 
@@ -285,7 +287,7 @@ class StockReconciliation(StockController):
 			allow_negative_stock = False
 			if has_batch_no:
 				allow_negative_stock = True
-
+			logger.info(f"sl_entries value={sl_entries}")
 			self.make_sl_entries(sl_entries, allow_negative_stock=allow_negative_stock)
 
 		if has_serial_no and sl_entries:
@@ -403,6 +405,8 @@ class StockReconciliation(StockController):
 				"warehouse": row.warehouse,
 				"posting_date": self.posting_date,
 				"posting_time": self.posting_time,
+				"iot_customer": self.iot_customer,
+				"iot_customer_user": self.iot_customer_user,
 				"voucher_type": self.doctype,
 				"voucher_no": self.name,
 				"voucher_detail_no": row.name,

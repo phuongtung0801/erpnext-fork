@@ -240,6 +240,7 @@ def apply_warehouse_filter(query, sle, filters):
 			)
 		)
 		query = query.where(ExistsCriterion(children_subquery))
+	
 	# if iot_customer := filters.get("iot_customer"):
     #     iot_customer_table = frappe.qb.DocType("iot_customer")
 	# 	# lft, rgt = frappe.db.get_value("iot_customer", iot_customer, ["", "rgt"])
