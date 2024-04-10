@@ -492,7 +492,8 @@ class BuyingController(SubcontractingController):
 							"serial_no": cstr(d.serial_no).strip(),
 							"iot_customer": self.iot_customer, 
 							"iot_customer_user": self.iot_customer_user,
-							"supplier": self.supplier
+							"supplier": self.supplier,
+							"file_path": self.file_path
 							}
 					)
 					

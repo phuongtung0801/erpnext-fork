@@ -18,6 +18,7 @@
   "user_first_name",
   "user_last_name",
   "description",
+  "file_path",
   "tax_id",
   "customer_name",
   "column_break1",
@@ -1451,13 +1452,18 @@
    "fieldtype": "Link",
    "label": "supplier",
    "options": "Supplier"
+  },
+  {
+   "fieldname": "file_path",
+   "fieldtype": "Long Text",
+   "label": "file_path"
   }
  ],
  "icon": "fa fa-truck",
  "idx": 146,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-24 14:39:03.876293",
+ "modified": "2024-04-09 12:47:12.477860",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Delivery Note",

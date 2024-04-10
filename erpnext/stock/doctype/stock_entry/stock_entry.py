@@ -1154,6 +1154,7 @@ class StockEntry(StockController):
 	def get_sle_for_source_warehouse(self, sl_entries, finished_item_row):
 		iot_customer = self.get('iot_customer')
 		iot_customer_user = self.get('iot_customer_user')
+		iot_crop = self.get('iot_crop')
 		#add for customer and supplier
 		customer = self.get('customer')
 		supplier = self.get('supplier')
@@ -1171,6 +1172,7 @@ class StockEntry(StockController):
 				# Add iot_test_customer to sle
 				sle["iot_customer"] = iot_customer
 				sle["iot_customer_user"] = iot_customer_user
+				sle["iot_crop"] = iot_crop
 				sle["customer"] = customer
 				sle["supplier"] = supplier
 				sl_entries.append(sle)
@@ -1178,6 +1180,7 @@ class StockEntry(StockController):
 	def get_sle_for_target_warehouse(self, sl_entries, finished_item_row):
 		iot_customer = self.get('iot_customer')
 		iot_customer_user = self.get('iot_customer_user')
+		iot_crop = self.get('iot_crop')
 		#add for customer and supplier
 		customer = self.get('customer')
 		supplier = self.get('supplier')
@@ -1196,6 +1199,7 @@ class StockEntry(StockController):
 					
 				sle["iot_customer"] = iot_customer
 				sle["iot_customer_user"] = iot_customer_user
+				sle["iot_crop"] = iot_crop
 				sle["customer"] = customer
 				sle["supplier"] = supplier
 				sl_entries.append(sle)

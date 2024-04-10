@@ -12,6 +12,8 @@
   "stock_entry_type",
   "iot_customer",
   "iot_customer_user",
+  "iot_crop",
+  "iot_farming_plan_task",
   "outgoing_stock_entry",
   "purpose",
   "add_to_transit",
@@ -681,6 +683,18 @@
    "fieldtype": "Link",
    "label": "iot_customer_user",
    "options": "iot_customer_user"
+  },
+  {
+   "fieldname": "iot_crop",
+   "fieldtype": "Link",
+   "label": "iot_crop",
+   "options": "iot_crop"
+  },
+  {
+   "fieldname": "iot_farming_plan_task",
+   "fieldtype": "Link",
+   "label": "iot_farming_plan_task",
+   "options": "iot_farming_plan_task"
   }
  ],
  "icon": "fa fa-file-text",
@@ -688,7 +702,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-03-16 08:46:18.903774",
+ "modified": "2024-04-09 14:12:49.776501",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Entry",

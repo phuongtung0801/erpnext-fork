@@ -504,7 +504,8 @@ class SellingController(StockController):
 						"iot_customer": self.iot_customer,
 						"iot_customer_user": self.iot_customer_user,
 						"customer": self.customer,
-						"supplier": self.supplier
+						"supplier": self.supplier,
+						"file_path": self.file_path
 						})
 					sl_entries.append(sle)
 
@@ -515,7 +516,8 @@ class SellingController(StockController):
 						"iot_customer": self.iot_customer,
 						"iot_customer_user": self.iot_customer_user,
 						"customer": self.customer,
-						"supplier": self.supplier
+						"supplier": self.supplier,
+						"file_path": self.file_path
 						})
 					sl_entries.append(sle)
 
@@ -529,7 +531,8 @@ class SellingController(StockController):
 						"iot_customer": self.iot_customer,
 						"iot_customer_user": self.iot_customer_user,
 						"customer": self.customer,
-						"supplier": self.supplier
+						"supplier": self.supplier,
+						"file_path": self.file_path
 						})
 					sl_entries.append(sle)
 
