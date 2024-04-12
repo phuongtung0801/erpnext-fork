@@ -10,7 +10,7 @@ import frappe
 from frappe import _
 from frappe.model.meta import get_field_precision
 from frappe.query_builder.functions import CombineDatetime, Sum
-from frappe.utils import cint, cstr, flt, get_link_to_form, getdate, now, nowdate
+from frappe.utils import cint, cstr, flt, get_link_to_form, getdate, now, nowdate, logger
 from datetime import datetime, date, time
 
 import erpnext
@@ -22,6 +22,8 @@ from erpnext.stock.utils import (
 )
 from erpnext.stock.valuation import FIFOValuation, LIFOValuation, round_off_if_near_zero
 
+logger.set_log_level("DEBUG")
+logger = frappe.logger("fuck_it", allow_site=True, file_count=50)
 
 class NegativeStockError(frappe.ValidationError):
 	pass
@@ -1595,7 +1597,8 @@ def update_qty_in_future_sle(args, allow_negative_stock=False):
 
 		# add condition to update SLEs before this date & time
 		datetime_limit_condition = get_datetime_limit_condition(detail)
-
+		##hiện tại đang tạm bỏ datetime_limit_condition khỏi query bên dưới vì bug
+		logger.info(f"debug datetime_limit_condition {datetime_limit_condition}")
 	frappe.db.sql(
 		f"""
 		update "tabStock Ledger Entry"
@@ -1612,7 +1615,6 @@ def update_qty_in_future_sle(args, allow_negative_stock=False):
 					to_char(posting_time::time, 'HH24:MI:SS') > to_char(%(posting_time)s::time, 'HH24:MI:SS')
 				)
 			)
-		{datetime_limit_condition}
 		""",
 		args,
 	)
@@ -1701,15 +1703,29 @@ def get_next_stock_reco(kwargs):
 	return query.run(as_dict=True)
 
 
+# def get_datetime_limit_condition(detail):
+# 	return f"""
+# 		and
+# 		(timestamp(posting_date, posting_time) < timestamp('{detail.posting_date}', '{detail.posting_time}')
+# 			or (
+# 				timestamp(posting_date, posting_time) = timestamp('{detail.posting_date}', '{detail.posting_time}')
+# 				and creation < '{detail.creation}'
+# 			)
+# 		)"""
+
 def get_datetime_limit_condition(detail):
-	return f"""
-		and
-		(timestamp(posting_date, posting_time) < timestamp('{detail.posting_date}', '{detail.posting_time}')
-			or (
-				timestamp(posting_date, posting_time) = timestamp('{detail.posting_date}', '{detail.posting_time}')
-				and creation < '{detail.creation}'
-			)
-		)"""
+    posting_date_str = detail.posting_date
+    posting_time_str = detail.posting_time
+    creation_str = detail.creation.strftime('%Y-%m-%d %H:%M:%S.%f')
+    return f"""
+        and
+        (timestamp(posting_date::text || ' ' || TO_CHAR(posting_time, 'HH24:MI:SS')) < timestamp('{posting_date_str} {posting_time_str}')
+            or (
+                timestamp(posting_date::text || ' ' || TO_CHAR(posting_time, 'HH24:MI:SS')) = timestamp('{posting_date_str} {posting_time_str}')
+                and creation < '{creation_str}'
+            )
+        )"""
+
 
 
 def validate_negative_qty_in_future_sle(args, allow_negative_stock=False):

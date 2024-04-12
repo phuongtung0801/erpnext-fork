@@ -273,9 +273,11 @@ logger = frappe.logger("my_custom_logger", allow_site=True, file_count=50)
 
 def get_stock_ledger_entries(filters, items):
 	logger.info("accessed counter_app.update with value={items}")
+	se = frappe.qb.DocType("Stock Entry")  # new line
 	sle = frappe.qb.DocType("Stock Ledger Entry")
 	query = (
 		frappe.qb.from_(sle)
+  		.left_join(se).on(sle.voucher_no == se.name)  # new line
 		.select(
 			sle.item_code,
 			CombineDatetime(sle.posting_date, sle.posting_time).as_("date"),
@@ -298,6 +300,7 @@ def get_stock_ledger_entries(filters, items):
 			sle.batch_no,
 			sle.serial_no,
 			sle.project,
+   			se.purpose,  # new line
 		)
 		.where(
 			(sle.docstatus < 2)
