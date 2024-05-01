@@ -14,6 +14,8 @@
   "iot_customer_user",
   "iot_crop",
   "iot_farming_plan_task",
+  "description",
+  "file_path",
   "outgoing_stock_entry",
   "purpose",
   "add_to_transit",
@@ -695,6 +697,16 @@
    "fieldtype": "Link",
    "label": "iot_farming_plan_task",
    "options": "iot_farming_plan_task"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "label": "description"
+  },
+  {
+   "fieldname": "file_path",
+   "fieldtype": "Data",
+   "label": "file_path"
   }
  ],
  "icon": "fa fa-file-text",
@@ -702,7 +714,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-09 14:12:49.776501",
+ "modified": "2024-04-19 14:05:03.688283",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Entry",
