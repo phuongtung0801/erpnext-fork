@@ -19,8 +19,10 @@ from erpnext.stock.utils import (
 	update_included_uom_in_report,
 )
 logger.set_log_level("DEBUG")
+logger = frappe.logger("my_custom_logger", allow_site=True, file_count=50)
 
 def execute(filters=None):
+	logger.info(f"filter in execute function is={filters}")
 	is_reposting_item_valuation_in_progress()
 	include_uom = filters.get("include_uom")
 	columns = get_columns(filters)
@@ -269,10 +271,10 @@ def get_columns(filters):
 	return columns
 
 
-logger = frappe.logger("my_custom_logger", allow_site=True, file_count=50)
 
 def get_stock_ledger_entries(filters, items):
-	logger.info("accessed counter_app.update with value={items}")
+	logger.info(f"accessed counter_app.update with value={items}")
+	logger.info(f"filter is={filters}")
 	se = frappe.qb.DocType("Stock Entry")  # new line
 	crop = frappe.qb.DocType("iot_crop")
 	sle = frappe.qb.DocType("Stock Ledger Entry")
@@ -328,7 +330,8 @@ def get_stock_ledger_entries(filters, items):
 	for field in ["voucher_type", "voucher_no", "batch_no", "project", "company", "iot_customer", "supplier", "customer"]:
 		if filters.get(field) and field not in inventory_dimension_fields:
 			query = query.where(sle[field] == filters.get(field))
-
+	if filters.get("iot_crop"):
+		query = query.where(se.iot_crop == filters.get("iot_crop"))
 	query = apply_warehouse_filter(query, sle, filters)
 	#query = apply_test_iot_customer_filter(query, sle, filters)
 	return query.run(as_dict=True)
