@@ -8,6 +8,8 @@
  "engine": "InnoDB",
  "field_order": [
   "type_of_payment",
+  "iot_customer",
+  "iot_customer_user",
   "naming_series",
   "payment_type",
   "payment_order_status",
@@ -728,12 +730,24 @@
    "fieldname": "section_break_60",
    "fieldtype": "Section Break",
    "hide_border": 1
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
   }
  ],
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-02-14 04:52:30.478523",
+ "modified": "2024-05-26 16:25:07.383087",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Payment Entry",

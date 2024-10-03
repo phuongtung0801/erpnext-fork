@@ -10,6 +10,8 @@
   "title",
   "naming_series",
   "supplier",
+  "iot_customer",
+  "iot_customer_user",
   "supplier_name",
   "tax_id",
   "company",
@@ -1566,13 +1568,25 @@
    "fieldname": "use_company_roundoff_cost_center",
    "fieldtype": "Check",
    "label": "Use Company Default Round Off Cost Center"
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
   }
  ],
  "icon": "fa fa-file-text",
  "idx": 204,
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-28 12:57:50.832598",
+ "modified": "2024-05-26 16:24:29.249567",
  "modified_by": "Administrator",
  "module": "Accounts",
  "name": "Purchase Invoice",

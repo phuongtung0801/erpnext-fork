@@ -15,12 +15,15 @@
   "label",
   "country",
   "iot_customer",
+  "total_outstanding_amount",
   "is_deleted",
   "facebook",
+  "email",
   "birthday",
   "description",
   "address",
   "province",
+  "district",
   "ward",
   "company",
   "supplier_phone",
@@ -525,6 +528,21 @@
    "fieldname": "supplier_name_alter",
    "fieldtype": "Data",
    "label": "supplier_name_alter"
+  },
+  {
+   "fieldname": "email",
+   "fieldtype": "Data",
+   "label": "email"
+  },
+  {
+   "fieldname": "district",
+   "fieldtype": "Data",
+   "label": "district"
+  },
+  {
+   "fieldname": "total_outstanding_amount",
+   "fieldtype": "Int",
+   "label": "total_outstanding_amount"
   }
  ],
  "icon": "fa fa-user",
@@ -537,7 +555,7 @@
    "link_fieldname": "party"
   }
  ],
- "modified": "2024-03-27 16:15:21.949461",
+ "modified": "2024-06-06 09:33:56.931742",
  "modified_by": "Administrator",
  "module": "Buying",
  "name": "Supplier",

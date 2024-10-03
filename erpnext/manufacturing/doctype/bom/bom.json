@@ -7,6 +7,9 @@
  "engine": "InnoDB",
  "field_order": [
   "production_item_tab",
+  "iot_customer",
+  "iot_customer_user",
+  "bom_description",
   "item",
   "company",
   "uom",
@@ -599,6 +602,23 @@
    "fieldname": "operating_cost_per_bom_quantity",
    "fieldtype": "Currency",
    "label": "Operating Cost Per BOM Quantity"
+  },
+  {
+   "fieldname": "iot_customer",
+   "fieldtype": "Link",
+   "label": "iot_customer",
+   "options": "iot_customer"
+  },
+  {
+   "fieldname": "iot_customer_user",
+   "fieldtype": "Link",
+   "label": "iot_customer_user",
+   "options": "iot_customer_user"
+  },
+  {
+   "fieldname": "bom_description",
+   "fieldtype": "Long Text",
+   "label": "bom_description"
   }
  ],
  "icon": "fa fa-sitemap",
@@ -606,7 +626,7 @@
  "image_field": "image",
  "is_submittable": 1,
  "links": [],
- "modified": "2023-04-06 12:47:58.514795",
+ "modified": "2024-05-23 08:02:33.607341",
  "modified_by": "Administrator",
  "module": "Manufacturing",
  "name": "BOM",
