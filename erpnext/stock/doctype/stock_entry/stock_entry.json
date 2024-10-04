@@ -29,6 +29,7 @@
   "col2",
   "company",
   "posting_date",
+  "lr_date",
   "posting_time",
   "set_posting_time",
   "inspection_required",
@@ -707,6 +708,11 @@
    "fieldname": "file_path",
    "fieldtype": "Data",
    "label": "file_path"
+  },
+  {
+   "fieldname": "lr_date",
+   "fieldtype": "Date",
+   "label": "lr_date"
   }
  ],
  "icon": "fa fa-file-text",
@@ -714,7 +720,7 @@
  "index_web_pages_for_search": 1,
  "is_submittable": 1,
  "links": [],
- "modified": "2024-04-19 14:05:03.688283",
+ "modified": "2024-10-04 09:54:44.380876",
  "modified_by": "Administrator",
  "module": "Stock",
  "name": "Stock Entry",

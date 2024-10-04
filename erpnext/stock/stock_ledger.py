@@ -306,7 +306,7 @@ def get_items_to_be_repost(voucher_type=None, voucher_no=None, doc=None):
 			filters={"voucher_type": voucher_type, "voucher_no": voucher_no},
 			fields=["item_code", "warehouse", "posting_date", "posting_time", "creation"],
 			order_by="creation asc",
-			group_by="item_code, warehouse",
+			group_by="item_code, warehouse, posting_date, posting_time, creation"
 		)
 
 	return items_to_be_repost or []
@@ -1615,6 +1615,7 @@ def update_qty_in_future_sle(args, allow_negative_stock=False):
 					to_char(posting_time::time, 'HH24:MI:SS') > to_char(%(posting_time)s::time, 'HH24:MI:SS')
 				)
 			)
+		{datetime_limit_condition}
 		""",
 		args,
 	)
@@ -1718,13 +1719,13 @@ def get_datetime_limit_condition(detail):
     posting_time_str = detail.posting_time
     creation_str = detail.creation.strftime('%Y-%m-%d %H:%M:%S.%f')
     return f"""
-        and
-        (timestamp(posting_date::text || ' ' || TO_CHAR(posting_time, 'HH24:MI:SS')) < timestamp('{posting_date_str} {posting_time_str}')
-            or (
-                timestamp(posting_date::text || ' ' || TO_CHAR(posting_time, 'HH24:MI:SS')) = timestamp('{posting_date_str} {posting_time_str}')
-                and creation < '{creation_str}'
-            )
-        )"""
+    and
+    (to_timestamp(posting_date || ' ' || posting_time, 'YYYY-MM-DD HH24:MI:SS') < to_timestamp('{posting_date_str} {posting_time_str}', 'YYYY-MM-DD HH24:MI:SS')
+        or (
+            to_timestamp(posting_date || ' ' || posting_time, 'YYYY-MM-DD HH24:MI:SS') = to_timestamp('{posting_date_str} {posting_time_str}', 'YYYY-MM-DD HH24:MI:SS')
+            and creation < '{creation_str}'
+        )
+    )"""
 
 
 
