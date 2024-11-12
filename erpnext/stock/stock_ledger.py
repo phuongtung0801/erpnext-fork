@@ -22,8 +22,8 @@ from erpnext.stock.utils import (
 )
 from erpnext.stock.valuation import FIFOValuation, LIFOValuation, round_off_if_near_zero
 
-logger.set_log_level("DEBUG")
-logger = frappe.logger("fuck_it", allow_site=True, file_count=50)
+# logger.set_log_level("DEBUG")
+# logger = frappe.logger("fuck_it", allow_site=True, file_count=50)
 
 class NegativeStockError(frappe.ValidationError):
 	pass
@@ -1598,7 +1598,7 @@ def update_qty_in_future_sle(args, allow_negative_stock=False):
 		# add condition to update SLEs before this date & time
 		datetime_limit_condition = get_datetime_limit_condition(detail)
 		##hiện tại đang tạm bỏ datetime_limit_condition khỏi query bên dưới vì bug
-		logger.info(f"debug datetime_limit_condition {datetime_limit_condition}")
+		# logger.info(f"debug datetime_limit_condition {datetime_limit_condition}")
 	frappe.db.sql(
 		f"""
 		update "tabStock Ledger Entry"

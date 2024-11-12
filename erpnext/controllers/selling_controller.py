@@ -14,8 +14,8 @@ from erpnext.stock.doctype.item.item import set_item_default
 from erpnext.stock.get_item_details import get_bin_details, get_conversion_factor
 from erpnext.stock.utils import get_incoming_rate
 
-logger.set_log_level("DEBUG")
-logger = frappe.logger("my_custom_logger", allow_site=True, file_count=50)
+# logger.set_log_level("DEBUG")
+# logger = frappe.logger("my_custom_logger", allow_site=True, file_count=50)
 
 
 class SellingController(StockController):
@@ -479,7 +479,7 @@ class SellingController(StockController):
 				)
 
 	def update_stock_ledger(self):
-		logger.info(f"dictupdate_stock_ledger  ={self.__dict__}")
+		# logger.info(f"dictupdate_stock_ledger  ={self.__dict__}")
 		self.update_reserved_qty()
 
 		sl_entries = []
