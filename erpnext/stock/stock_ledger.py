@@ -1201,7 +1201,7 @@ def get_previous_sle_of_current_voucher(args, operator="<", exclude_current_vouc
 		voucher_no = args.get("voucher_no")
 		voucher_condition = f"and voucher_no != '{voucher_no}'"
 	frappe.log_error(frappe.get_traceback(), 'Debugging get_previous_sle_of_current_voucher: ' + str(args))
-	print("fuck you")
+
 	sle = frappe.db.sql(
 		"""
 		select *, (posting_date || ' ' || posting_time)::timestamp as "timestamp"
@@ -1320,7 +1320,8 @@ def get_stock_ledger_entries(
 	limit=None,
 	for_update=False,
 	debug=False,
-	check_serial_no=True
+	check_serial_no=True,
+	extra_cond=None,
 ):
 	"""get stock ledger entries filtered by specific posting datetime conditions"""
 	# conditions = " and timestamp(posting_date, posting_time) {0} timestamp(%(posting_date)s, %(posting_time)s)".format(
@@ -1361,11 +1362,11 @@ def get_stock_ledger_entries(
 	if operator in (">", "<=") and previous_sle.get("name"):
 		conditions += " and name!=%(name)s"
 
-	# if operator in (">", "<=") and previous_sle.get("voucher_no"):
-	# 	conditions += " and voucher_no!=%(voucher_no)s"
+	if operator in (">", "<=") and previous_sle.get("voucher_no"):
+		conditions += " and voucher_no!=%(voucher_no)s"
 
-	# if extra_cond:
-	# 	conditions += f"{extra_cond}"
+	if extra_cond:
+		conditions += f"{extra_cond}"
 
 	return frappe.db.sql(
 		"""

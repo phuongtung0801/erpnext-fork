@@ -168,7 +168,7 @@ class StockEntry(StockController):
 		self.update_pick_list_status()
 
 		self.make_gl_entries()
-
+		#checked
 		self.repost_future_sle_and_gle()
 		self.update_cost_in_project()
 		self.validate_reserved_serial_no_consumption()
