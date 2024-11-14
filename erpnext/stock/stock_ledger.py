@@ -1581,47 +1581,46 @@ def get_valuation_rate(
 # 	validate_negative_qty_in_future_sle(args, allow_negative_stock)
 
 def update_qty_in_future_sle(args, allow_negative_stock=False):
-	"""Recalculate Qty after Transaction in future SLEs based on current SLE."""
-	datetime_limit_condition = ""
-	qty_shift = args.actual_qty
+    """Recalculate Qty after Transaction in future SLEs based on current SLE."""
+    datetime_limit_condition = ""
+    qty_shift = args.actual_qty
 
-	# find difference/shift in qty caused by stock reconciliation
-	if args.voucher_type == "Stock Reconciliation":
-		qty_shift = get_stock_reco_qty_shift(args)
+    args["time_format"] = "%H:%i:%s"
 
-	# find the next nearest stock reco so that we only recalculate SLEs till that point
-	next_stock_reco_detail = get_next_stock_reco(args)
-	if next_stock_reco_detail:
-		detail = next_stock_reco_detail[0]
-		if detail.batch_no:
-			regenerate_sle_for_batch_stock_reco(detail)
+    # find difference/shift in qty caused by stock reconciliation
+    if args.voucher_type == "Stock Reconciliation":
+        qty_shift = get_stock_reco_qty_shift(args)
 
-		# add condition to update SLEs before this date & time
-		datetime_limit_condition = get_datetime_limit_condition(detail)
-		##hiện tại đang tạm bỏ datetime_limit_condition khỏi query bên dưới vì bug
-		# logger.info(f"debug datetime_limit_condition {datetime_limit_condition}")
-	frappe.db.sql(
-		f"""
-		update "tabStock Ledger Entry"
-		set qty_after_transaction = qty_after_transaction + {qty_shift}
-		where
-			item_code = %(item_code)s
-			and warehouse = %(warehouse)s
-			and voucher_no != %(voucher_no)s
-			and is_cancelled = 0
-			and (
-				posting_date > %(posting_date)s or
-				(
-					posting_date = %(posting_date)s and
-					to_char(posting_time::time, 'HH24:MI:SS') > to_char(%(posting_time)s::time, 'HH24:MI:SS')
-				)
-			)
-		{datetime_limit_condition}
-		""",
-		args,
-	)
+    # find the next nearest stock reco so that we only recalculate SLEs till that point
+    next_stock_reco_detail = get_next_stock_reco(args)
+    if next_stock_reco_detail:
+        detail = next_stock_reco_detail[0]
 
-	validate_negative_qty_in_future_sle(args, allow_negative_stock)
+        # add condition to update SLEs before this date & time
+        datetime_limit_condition = get_datetime_limit_condition(detail)
+
+    frappe.db.sql(
+        f"""
+        update "tabStock Ledger Entry"
+        set qty_after_transaction = qty_after_transaction + {qty_shift}
+        where
+            item_code = %(item_code)s
+            and warehouse = %(warehouse)s
+            and voucher_no != %(voucher_no)s
+            and is_cancelled = 0
+            and (
+                posting_date > %(posting_date)s or
+                (
+                    posting_date = %(posting_date)s and
+                    (posting_date || ' ' || posting_time)::timestamp > (%(posting_date)s || ' ' || %(posting_time)s)::timestamp
+                )
+            )
+        {datetime_limit_condition}
+        """,
+        args,
+    )
+
+    validate_negative_qty_in_future_sle(args, allow_negative_stock)
 
 
 def regenerate_sle_for_batch_stock_reco(detail):
