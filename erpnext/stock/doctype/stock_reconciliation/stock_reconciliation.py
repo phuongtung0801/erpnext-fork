@@ -287,7 +287,7 @@ class StockReconciliation(StockController):
 			allow_negative_stock = False
 			if has_batch_no:
 				allow_negative_stock = True
-			logger.info(f"sl_entries value={sl_entries}")
+			# logger.info(f"sl_entries value={sl_entries}")
 			self.make_sl_entries(sl_entries, allow_negative_stock=allow_negative_stock)
 
 		if has_serial_no and sl_entries:

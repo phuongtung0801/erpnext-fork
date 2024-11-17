@@ -22,8 +22,8 @@ from erpnext.stock.utils import (
 )
 from erpnext.stock.valuation import FIFOValuation, LIFOValuation, round_off_if_near_zero
 
-# logger.set_log_level("DEBUG")
-# logger = frappe.logger("fuck_it", allow_site=True, file_count=50)
+logger.set_log_level("DEBUG")
+logger = frappe.logger("debug_stock_ledger", allow_site=True, file_count=50)
 
 class NegativeStockError(frappe.ValidationError):
 	pass
@@ -46,6 +46,8 @@ def make_sl_entries(sl_entries, allow_negative_stock=False, via_landed_cost_vouc
 	"""
 	from erpnext.controllers.stock_controller import future_sle_exists
 	frappe.errprint("Thông điệp lỗi của bạn ở đây")
+	# logger.info("Debug sl_entries")
+	# logger.info(sl_entries)
 	if sl_entries:
 		cancel = sl_entries[0].get("is_cancelled")
 		if cancel:
@@ -119,6 +121,8 @@ def repost_current_voucher(args, allow_negative_stock=False, via_landed_cost_vou
 
 		# update qty in future sle and Validate negative qty
 		# For LCV: update future balances with -ve LCV SLE, which will be balanced by +ve LCV SLE
+		# logger.info("Prepare to repost")
+		# logger.info(args)
 		update_qty_in_future_sle(args, allow_negative_stock)
 
 
@@ -1599,6 +1603,28 @@ def update_qty_in_future_sle(args, allow_negative_stock=False):
         # add condition to update SLEs before this date & time
         datetime_limit_condition = get_datetime_limit_condition(detail)
 
+    # # Debugging: Select the records that will be updated
+    # debug_select_query = f"""
+    #     select name, qty_after_transaction, voucher_no
+    #     from "tabStock Ledger Entry"
+    #     where
+    #         item_code = %(item_code)s
+    #         and warehouse = %(warehouse)s
+    #         and voucher_no != %(voucher_no)s
+    #         and is_cancelled = 0
+    #         and (
+    #             posting_date > %(posting_date)s or
+    #             (
+    #                 posting_date = %(posting_date)s and
+    #                 (posting_date || ' ' || posting_time)::timestamp > (%(posting_date)s || ' ' || %(posting_time)s)::timestamp
+    #             )
+    #         )
+    #     {datetime_limit_condition}
+    # """
+    # logger.info("Debug stock ledger entry to repost")
+    # logger.info(frappe.db.sql(debug_select_query, args, as_dict=True))
+
+    # Update the records
     frappe.db.sql(
         f"""
         update "tabStock Ledger Entry"
