@@ -7,7 +7,7 @@ from typing import List, Tuple
 
 import frappe
 from frappe import _
-from frappe.utils import cint, cstr, flt, get_link_to_form, getdate
+from frappe.utils import cint, cstr, flt, get_link_to_form, getdate, logger
 
 import erpnext
 from erpnext.accounts.general_ledger import (
@@ -23,6 +23,8 @@ from erpnext.stock.doctype.inventory_dimension.inventory_dimension import (
 )
 from erpnext.stock.stock_ledger import get_items_to_be_repost
 
+logger.set_log_level("DEBUG")
+logger = frappe.logger("stock_controller_debug", allow_site=True, file_count=50)
 
 class QualityInspectionRequiredError(frappe.ValidationError):
 	pass
@@ -733,7 +735,7 @@ class StockController(AccountsController):
 				"company": self.company,
 			}
 		)
-
+		logger.info("args={args}")
 		if force or future_sle_exists(args) or repost_required_for_queue(self):
 			item_based_reposting = cint(
 				frappe.db.get_single_value("Stock Reposting Settings", "item_based_reposting")
@@ -896,7 +898,7 @@ def future_sle_exists(args, sl_entries=None):
 
 	for d in data:
 		frappe.local.future_sle[key][(d.item_code, d.warehouse)] = d.total_row
-
+	logger.info("future_sle_exists={data}")
 	return len(data)
 
 
@@ -956,6 +958,7 @@ def get_conditions_to_validate_future_sle(sl_entries):
 
 
 def create_repost_item_valuation_entry(args):
+	logger.info("create_repost_item_valuation_entry={args}")
 	args = frappe._dict(args)
 	repost_entry = frappe.new_doc("Repost Item Valuation")
 	repost_entry.based_on = args.based_on
@@ -977,9 +980,9 @@ def create_repost_item_valuation_entry(args):
 
 def create_item_wise_repost_entries(voucher_type, voucher_no, allow_zero_rate=False):
 	"""Using a voucher create repost item valuation records for all item-warehouse pairs."""
-
+	
 	stock_ledger_entries = get_items_to_be_repost(voucher_type, voucher_no)
-
+	logger.info("create_item_wise_repost_entries={stock_ledger_entries}")
 	distinct_item_warehouses = set()
 	repost_entries = []
 

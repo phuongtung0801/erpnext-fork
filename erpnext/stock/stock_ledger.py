@@ -22,8 +22,8 @@ from erpnext.stock.utils import (
 )
 from erpnext.stock.valuation import FIFOValuation, LIFOValuation, round_off_if_near_zero
 
-# logger.set_log_level("DEBUG")
-# logger = frappe.logger("fuck_it", allow_site=True, file_count=50)
+logger.set_log_level("DEBUG")
+logger = frappe.logger("stock_ledger_debug", allow_site=True, file_count=50)
 
 class NegativeStockError(frappe.ValidationError):
 	pass
@@ -1581,25 +1581,36 @@ def get_valuation_rate(
 # 	validate_negative_qty_in_future_sle(args, allow_negative_stock)
 
 def update_qty_in_future_sle(args, allow_negative_stock=False):
-    """Recalculate Qty after Transaction in future SLEs based on current SLE."""
+    # Log input parameters
+    logger.info("🚀 Starting update_qty_in_future_sle with args: %s", args)
+
     datetime_limit_condition = ""
     qty_shift = args.actual_qty
-
     args["time_format"] = "%H:%i:%s"
 
-    # find difference/shift in qty caused by stock reconciliation
+    # Log initial qty_shift
+    logger.info("📊 Initial qty_shift: %s", qty_shift)
+
+    # Check Stock Reconciliation
     if args.voucher_type == "Stock Reconciliation":
         qty_shift = get_stock_reco_qty_shift(args)
+        logger.info("♻️ Stock Reconciliation detected - Updated qty_shift: %s", qty_shift)
 
-    # find the next nearest stock reco so that we only recalculate SLEs till that point
+    # Find next stock reconciliation
     next_stock_reco_detail = get_next_stock_reco(args)
     if next_stock_reco_detail:
         detail = next_stock_reco_detail[0]
-
-        # add condition to update SLEs before this date & time
         datetime_limit_condition = get_datetime_limit_condition(detail)
+        logger.info("🔄 Found next stock reconciliation: %s", detail)
+        logger.info("⏰ DateTime limit condition: %s", datetime_limit_condition)
 
-    frappe.db.sql(
+    # Log SQL query parameters
+    logger.info("📝 Executing update query with parameters: item_code=%s, warehouse=%s, voucher_no=%s, posting_date=%s, posting_time=%s",
+        args.get('item_code'), args.get('warehouse'), args.get('voucher_no'), 
+        args.get('posting_date'), args.get('posting_time'))
+
+    # Execute update query
+    updated_rows = frappe.db.sql(
         f"""
         update "tabStock Ledger Entry"
         set qty_after_transaction = qty_after_transaction + {qty_shift}
@@ -1619,8 +1630,14 @@ def update_qty_in_future_sle(args, allow_negative_stock=False):
         """,
         args,
     )
+    
+    # Log number of updated records
+    logger.info("✅ Updated %s future stock ledger entries", frappe.db.sql("SELECT ROW_COUNT();")[0][0])
 
+    # Validate negative quantities
+    logger.info("🔍 Starting negative quantity validation")
     validate_negative_qty_in_future_sle(args, allow_negative_stock)
+    logger.info("✨ Completed update_qty_in_future_sle successfully")
 
 
 def regenerate_sle_for_batch_stock_reco(detail):
