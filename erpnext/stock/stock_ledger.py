@@ -46,6 +46,8 @@ def make_sl_entries(sl_entries, allow_negative_stock=False, via_landed_cost_vouc
 	"""
 	from erpnext.controllers.stock_controller import future_sle_exists
 	frappe.errprint("Thông điệp lỗi của bạn ở đây")
+	# logger.info("Debug sl_entries")
+	# logger.info(sl_entries)
 	if sl_entries:
 		cancel = sl_entries[0].get("is_cancelled")
 		if cancel:
@@ -119,6 +121,8 @@ def repost_current_voucher(args, allow_negative_stock=False, via_landed_cost_vou
 
 		# update qty in future sle and Validate negative qty
 		# For LCV: update future balances with -ve LCV SLE, which will be balanced by +ve LCV SLE
+		# logger.info("Prepare to repost")
+		# logger.info(args)
 		update_qty_in_future_sle(args, allow_negative_stock)
 
 
